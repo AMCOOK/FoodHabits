@@ -1,0 +1,13 @@
+Package: FoodHabits
+Title: Functions for Food Habits Analysis from BIO Ecosystem Surveys
+Version: 0.0.0.9000
+Authors@R: person("Adam", "Cook", email = "adam.cook@dfo-mpo.gc.ca", role = c("aut", "cre"))
+Description: Variety of Functions to capture data from the PTRAN Oracle
+    databases schema mfd_stomach, summarize data, produce stratified diet estimates,
+    plots, species accumulation curves, and more.
+Depends:
+    R (>= 3.3.0)
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 5.0.1.9000

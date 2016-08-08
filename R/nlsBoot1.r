@@ -1,4 +1,5 @@
-#@
+#' @export
+
 nlsBoot1 <- function (nls, data1,niter = 999,Qlow1, Qhigh1) 
 {
   if (!inherits(nls, "nls")) 

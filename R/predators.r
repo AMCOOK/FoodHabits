@@ -1,4 +1,5 @@
-#@
+#' @export
+
 predators <- function(species) {
 	specs <- strsplit(species,"-")[[1]][1]
 	dat <- sqlQuery(channel,paste("Select to_char(sdate,'yyyy') year,nafo ,spec,count(distinct sample_index) n_preds

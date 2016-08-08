@@ -1,4 +1,5 @@
-#@
+#' @export
+
 gs.rv.data <- function(year,area,species,season) {
 	#rv numbers per tow by length
 	yrs1 <- paste(year,collapse="','")

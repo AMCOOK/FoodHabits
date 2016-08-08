@@ -1,4 +1,5 @@
-#@
+#' @export
+
 combining.strata.rflen <- function(x) {
 	A <- c('YEAR','RFLEN', 'STRAT','BIOM.mean',  'CLEN.mean',   'BIOM.var',   'CLEN.var', 'strat.areas')
 	b <- x[,!colnames(x) %in% A]

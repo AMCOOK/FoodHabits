@@ -1,4 +1,5 @@
-#@
+#' @export
+
 decline.estimates <- function(da,syear,eyear) {
 	dd <- subset(da,da$Year>=syear & da$Year<=eyear)
 	plot(dd$Year,log(dd$Total),type='n',ylab='Log Abundance #s',xlab='Year')

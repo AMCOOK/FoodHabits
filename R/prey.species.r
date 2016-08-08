@@ -1,4 +1,5 @@
-#@
+#' @export
+
 prey.species <- function(group) {
 	if(group=='Fin Fish') {spec=paste(10:1000,collapse=",")}
 	if(group=='Shrimps') {spec=paste(2100:2415,collapse=",")}

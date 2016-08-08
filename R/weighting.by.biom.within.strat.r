@@ -1,4 +1,5 @@
-#@
+#' @export
+
 weighting.by.biom.within.strat <- function (z) {
 		#for combining lengths in stratified diet estimates weighted means and variances
 	x <- c('YEAR','STRAT','FLEN', "BIOM.mean" ,"CLEN.mean", "BIOM.var", "CLEN.var",'RFLEN')

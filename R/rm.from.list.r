@@ -1,4 +1,5 @@
-#@
+#' @export
+
 rm.from.list <- function(list1) {
 	#removes elements from list that contain no information
 	a <- dim.list(list1)

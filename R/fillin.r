@@ -1,4 +1,5 @@
-#@
+#' @export
+
 fillin <- function(l,d) {
 	#uses the slope of relation bwn pwt and len to fill in missing
 	#l=length column

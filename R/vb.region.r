@@ -1,4 +1,5 @@
-#@
+#' @export
+
 vb.region <- function(strat.nafo,seas,yrs=year,sp=species) {
 	mns <- ifelse(seas=='Winter',paste('12','01','02','03',sep="','"),ifelse(seas=='Spring',paste('04','05',sep="','"),ifelse(seas=='Summer',paste('06','07','08',sep="','"),
 	ifelse(seas=='Autumn',paste('09','10','11','12',sep="','"),9999))))

@@ -1,4 +1,5 @@
- #@
+#' @export
+ 
 cor.prob <- function(X, dfr = nrow(X) - 2) {
 				 R <- cor(X)
 				 above <- row(R) < col(R)

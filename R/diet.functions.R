@@ -1,23 +1,23 @@
-#@
+
 data.src <- function() {
 		srcs <- sqlQuery(channel,paste("select distinct datasource from mfd_stomach.sdinf order by datasource;"))
 		a3 <- paste(srcs[,1],sep=",")
 	return(a3)
 	}
-#@
+
 data.year <- function(dat) {
 		years <- sqlQuery(channel,paste("select distinct to_char(sdate,'yyyy') from mfd_stomach.sdinf where datasource= '",dat[1],"' and sdate is not null order by to_char(sdate,'yyyy');",sep=""))
 		a3 <- paste(years[,1],sep=",")
 	return(a3)
 	}
-#@
+
 data.seasons <- function(dat,year) {
 		season <- sqlQuery(channel,paste("select distinct decode(to_char(sdate,'mm'),'01','Winter','02','Winter','03','Winter','04','Spring','05','Spring','06','Summer','07','Summer','08','Summer','09',
 			'Autumn','10','Autumn','11','Autumn','12','Winter','other') season from mfd_stomach.sdinf where datasource= '",dat[1],"' and sdate is not null and to_char(sdate,'yyyy') in ('",year,"');",sep=""))
 		a3 <- paste(season[,1],sep=",")
 	return(a3)
 	}
-#@
+
 data.region <- function(dat=ds,strat.nafo=areas,seas=season,yrs=year) {
 	yrs1 <- paste(yrs,collapse="','")
 	mns <- ifelse(seas=='Winter',paste('12','01','02','03',sep="','"),ifelse(seas=='Spring',paste('04','05',sep="','"),ifelse(seas=='Summer',paste('06','07','08',sep="','"),
@@ -34,7 +34,7 @@ data.region <- function(dat=ds,strat.nafo=areas,seas=season,yrs=year) {
 	return(a3)
 	}
 
-#@
+
 data.species <- function(dat=ds, strat.nafo=areas,seas=season,yrs=year,reg=regions) {
 	yrs1 <- paste(yrs,collapse="','")
 	reg1 <- paste(reg,collapse="','")
@@ -54,7 +54,7 @@ data.species <- function(dat=ds, strat.nafo=areas,seas=season,yrs=year,reg=regio
 	a3 <- paste(species[,1],sep=",")
 	return(a3)
 	}
-#@
+
 get.diet.data <- function(dat=ds, strat.nafo=areas,seas=season,yrs=year,reg=regions,specs=spec1) {
 	yrs1 <- paste(yrs,collapse="','")
 	reg1 <- paste(reg,collapse="','")
@@ -74,7 +74,7 @@ get.diet.data <- function(dat=ds, strat.nafo=areas,seas=season,yrs=year,reg=regi
 						}
 	return(diet)
 	}
-#@
+
 species.accumulation <- function(data,cut.p=F) {
 	
 	
@@ -89,7 +89,7 @@ species.accumulation <- function(data,cut.p=F) {
 			}
 			}
 			
-#@
+
 species.accumulation.by.length <- function(data,lengths, cut.p=T) {
 	if(cut.p) {
 		data$RFLEN <- ifelse(data$FLEN<=lengths,paste("<=",lengths,sep=""),paste(">",lengths,sep=""))
@@ -108,7 +108,7 @@ species.accumulation.by.length <- function(data,lengths, cut.p=T) {
  		a <- lapply(d1,species.accumulation,cut.p=T)
 		}
 	}
-#@
+
 gs.rv.data <- function(year,area,species,season) {
 	#rv numbers per tow by length
 	yrs1 <- paste(year,collapse="','")
@@ -162,7 +162,7 @@ gs.rv.data <- function(year,area,species,season) {
 	dd <- list(survey.data=dats,strata.weights=wts)
 	return(dd)
 }
-#@
+
 mean.diet <- function(diet.data,prey.grouping='FAM',remove.singletons=1,remove.influentials=1,percent.diff=50,by.lengths=F) {
 		#mean diet no stratification and no length corrections
 	diet.data$YEAR <- as.numeric(substr(diet.data$MISSION,4,7))
@@ -238,7 +238,7 @@ mean.diet <- function(diet.data,prey.grouping='FAM',remove.singletons=1,remove.i
 	}
 }
 
-#@
+
 mean.diet.by.length <- function(data,lengths, cut.p=T, prey.grouping,remove.singletons,remove.influentials,percent.diff) {
 	mult.windows()
 	if(cut.p) {
@@ -257,7 +257,7 @@ mean.diet.by.length <- function(data,lengths, cut.p=T, prey.grouping,remove.sing
 		}
 		return(a)
 	}
-#@
+
 stratified.diet <- function (diet.data=diet.data$raw.diet,survey.data=diet.data$gs.survey.data,strata.data=diet.data$strata.data,prey.grouping=pp,
 							remove.singletons,by.lengths=F,cut.p=T,lengths,a.b=diet.data$a.b,fillin.missing.lengths=F) {
 		diet.data$YEAR <- as.numeric(substr(diet.data$MISSION,4,7))
@@ -398,7 +398,7 @@ stratified.diet <- function (diet.data=diet.data$raw.diet,survey.data=diet.data$
 	return(cd5)
 	}
 	
-#@
+
 prey.species <- function(group) {
 	if(group=='Fin Fish') {spec=paste(10:1000,collapse=",")}
 	if(group=='Shrimps') {spec=paste(2100:2415,collapse=",")}
@@ -414,7 +414,7 @@ prey.species <- function(group) {
 	dat <- paste(dat$COMMON,dat$N,sep="-")
 		return(dat)
 }
-#@
+
 predators <- function(species) {
 	specs <- strsplit(species,"-")[[1]][1]
 	dat <- sqlQuery(channel,paste("Select to_char(sdate,'yyyy') year,nafo ,spec,count(distinct sample_index) n_preds
@@ -432,14 +432,14 @@ predators <- function(species) {
 	d1 <- list(Predation.by.Species=by.spec,Predation.by.Species.and.Time=by.spec.year,Predation.by.Species.and.Area=by.spec.area,Predation.by.Species.Area.Time=by.spec.year.area)
 	return(d1)
 	}
-#@
+
 rv.year <- function(season) {
 	mns <- ifelse(season=='Winter',paste('12','01','02','03',sep="','"),ifelse(season=='Spring',paste('04','05',sep="','"),ifelse(season=='Summer',paste('06','07','08',sep="','"),
 	ifelse(season=='Autumn',paste('09','10','11','12',sep="','"),9999))))
 	dats <- sqlQuery(channel,paste("select distinct to_char(sdate,'yyyy') year from groundfish.gsinf where to_char(sdate,'mm') in ('",mns,"') order by to_char(sdate,'yyyy');",sep=""))
 	}
 
-#@
+
 rv.data.region <- function(strat.nafo=areas,seas=season,yrs=year) {
 	yrs1 <- paste(yrs,collapse="','")
 	mns <- ifelse(seas=='Winter',paste('12','01','02','03',sep="','"),ifelse(seas=='Spring',paste('04','05',sep="','"),ifelse(seas=='Summer',paste('06','07','08',sep="','"),
@@ -456,7 +456,7 @@ rv.data.region <- function(strat.nafo=areas,seas=season,yrs=year) {
 	return(a3)
 	}
 
-#@
+
 rv.species <- function(year, season,area)
 	{
 	mns <- ifelse(season=='Winter',paste('12','01','02','03',sep="','"),ifelse(season=='Spring',paste('04','05',sep="','"),ifelse(season=='Summer',paste('06','07','08',sep="','"),
@@ -469,7 +469,7 @@ rv.species <- function(year, season,area)
 	 in ('",reg1,"')) group by common) where n>1 order by common;",sep=""))
 	}
 
-#@
+
 rv.data <- function(year,area,specs,season) {
 	#rv numbers per tow by length
 	yrs1 <- paste(year,collapse="','")
@@ -523,7 +523,7 @@ rv.data <- function(year,area,specs,season) {
 	
 }
 
-#@
+
 stratified.estimates <- function(survey.dat=diet.data$rv.data.by.length$survey.data,strata.dat=diet.data$rv.data.by.length$strata.weights,by.lengths=F,cut.p=F,lengths) {
 	survey.dat <- merge(survey.dat,strata.dat,by='STRAT')
 	ss <- to.nums(as.data.frame(do.call('rbind',(strsplit(unique(paste(survey.dat$YEAR,survey.dat$STRAT,survey.dat$TAREA,sep="-")),"-")))),c(1,2,3))
@@ -588,7 +588,7 @@ stratified.estimates <- function(survey.dat=diet.data$rv.data.by.length$survey.d
 		return(dd)
 		}
 
-#@
+
 decline.estimates <- function(da,syear,eyear) {
 	dd <- subset(da,da$Year>=syear & da$Year<=eyear)
 	plot(dd$Year,log(dd$Total),type='n',ylab='Log Abundance #s',xlab='Year')
@@ -613,7 +613,7 @@ decline.estimates <- function(da,syear,eyear) {
 	return(dg)
 	}
 
-#@
+
 plot.strat.ests <- function(a=strat.ests) {
 	plot(a$Year,a$Mean,type='n',xlab='Year',ylab=expression(Number%.%tow^-1),ylim=c(min(a$Mean-a$SD),max(a$Mean+a$SD)))
 	if(ncol(a)>=7) {
@@ -636,7 +636,7 @@ plot.strat.ests <- function(a=strat.ests) {
 	}
 }
 
-#@
+
 influential.obs <- function(x,infl=50){
 	##identify influential observation based on their percent difference in mean from the overall
 	#only if there are greater than 2 times this prey is observed as less than that it becomes a problem
@@ -659,7 +659,7 @@ influential.obs <- function(x,infl=50){
 	 	return(e)
 	}
 
-#@
+
 a.b <- function(specs,year=ddd,area,season,stat.num=5,plots=T,diet.analysis=F) {
 			if(diet.analysis) {specs <- strsplit(specs,"-")[[1]][1]}
 						yrs1 <- paste(year,collapse="','")
@@ -710,13 +710,13 @@ a.b <- function(specs,year=ddd,area,season,stat.num=5,plots=T,diet.analysis=F) {
 			return(abc)
 }
 
-#@
+
 vb.spps <- 	function() {
 spp.choose <- sqlQuery(channel,paste("select distinct common from groundfish.gsdet d, mflib.species_codes s where s.research=d.spec and age is not null;"))
 	return(spp.choose[,1])
 	}
 
-#@
+
 vb.season <- function(species) {
 sea <- sqlQuery(channel,paste("select distinct decode(to_char(sdate,'mm'),1,'Winter',2,'Winter',3,'Winter',4,'Spring',5,'Spring',6,'Summer',7,'Summer',8,'Summer',9,'Autumn',10,
 'Autumn',11,'Autumn',12,'Winter',9999) ss from groundfish.gsinf i, groundfish.gsdet d, mflib.species_codes c where i.mission=d.mission and i.setno=d.setno and d.spec=c.research and 
@@ -724,7 +724,7 @@ c.common='",species,"' and age is not null;",sep=""))
 return(sea[,1])
 }
 
-#@
+
 vb.year <- function(species,season){
 				mns <- ifelse(season=='Winter',paste('12','01','02','03',sep="','"),ifelse(season=='Spring',paste('04','05',sep="','"),ifelse(season=='Summer',paste('06','07','08',sep="','"),
 				ifelse(season=='Autumn',paste('09','10','11','12',sep="','"),9999))))
@@ -734,7 +734,7 @@ vb.year <- function(species,season){
 return(ss[,1])
 }	
 
-#@
+
 vb.region <- function(strat.nafo,seas,yrs=year,sp=species) {
 	mns <- ifelse(seas=='Winter',paste('12','01','02','03',sep="','"),ifelse(seas=='Spring',paste('04','05',sep="','"),ifelse(seas=='Summer',paste('06','07','08',sep="','"),
 	ifelse(seas=='Autumn',paste('09','10','11','12',sep="','"),9999))))
@@ -750,7 +750,7 @@ vb.region <- function(strat.nafo,seas,yrs=year,sp=species) {
 	return(a3)
 	}
 
-#@
+
 LVB <- function(species,area,syear,eyear,season, plot=T,add.plot=F,line.col='blue',init.pars=list(hinf=0, K=0, t0=0), NLS=T,MLE=F, method=c('BFGS','CG','SANN'),cohort=F,
 	compare=F,species2,area2,syear2,eyear2,season2, init.pars2=list(hinf=0, K=0, t0=0),cohort2,control = list(maxiter = 10000, minFactor = 1/2024, tol = 1e-05),means=F,error.kimura.c,
 	means2=F,error.kimura.c2)
@@ -1014,7 +1014,7 @@ LVB <- function(species,area,syear,eyear,season, plot=T,add.plot=F,line.col='blu
 }
 }
 
-#@
+
 to.nums <- function(x,cols,numerics=T) {
 	for(i in 1:length(cols)) {
 	if(is.factor(x[,cols[i]])) {
@@ -1032,7 +1032,7 @@ to.nums <- function(x,cols,numerics=T) {
 	return(x)
 }
 
-#@
+
 round.flens <- function(x,grp) {
 		if(grp==3) a <- floor(x/3)*3+1    #3cm
 		if(grp==5) a <- floor(x/5)*5+2    #5cm
@@ -1040,7 +1040,7 @@ round.flens <- function(x,grp) {
 		if(grp==20) a <- floor(x/20)*20+10  #20cm
 		return(a)
 				}  
-#@
+
 tally.flens <- function(x) {
 	#makes the flen groups same as tally sheets from subsampling forms
 	a <- cbind(1:200,c(rep(5,10),rep(seq(13,98,by=5),each=5),rep(100,100)))
@@ -1048,14 +1048,14 @@ tally.flens <- function(x) {
 	return(b)
 	}
 
-#@
+
 id.non.0 <- function(x) {
 	#function to find out the number of eating fish needed for apply function
 		a <- sum(x>0)
 		return(a)	
 	}
 
-#@
+
 within.strat <- function(data1) {
 	#within strata means and variances using clen data within length groups
 	#dats are the means
@@ -1084,14 +1084,14 @@ within.strat <- function(data1) {
 	}
 
 
-#@
+
 mult.windows <- function(mars=par()$mar,mfrows=par()$mfrow) {
 		graphics.off()
 		if(exists(".SavedPlots",where=1)==T){rm(.SavedPlots,pos=1)}
 		par(mar=mars,mfrow=mfrows)
 		windows(record=T)
 		}
-#@
+
 save.to.csv <- function(data) {
 	a <- getwd()
 	b <- Sys.time()
@@ -1131,7 +1131,7 @@ save.to.csv <- function(data) {
   cat("\n")
 }
 
-#@
+
 sort.list.amc <- function(list1,r,inc=T) { #sorts all elements in a list based on the column r
 	#r=column number for sort
 	a <- length(list1)
@@ -1144,7 +1144,7 @@ sort.list.amc <- function(list1,r,inc=T) { #sorts all elements in a list based o
 	return(b)
 }
 
-#@
+
 dim.list <- function(list1) {
  ab <- matrix(nrow=length(list1),ncol=2)
 for(i in 1:length(list1)) {
@@ -1153,7 +1153,7 @@ for(i in 1:length(list1)) {
 	return(ab)
 	}
 
-#@
+
 rm.from.list <- function(list1) {
 	#removes elements from list that contain no information
 	a <- dim.list(list1)
@@ -1163,7 +1163,7 @@ rm.from.list <- function(list1) {
 	return(list1)
 	}
 
-#@
+
 fillin <- function(l,d) {
 	#uses the slope of relation bwn pwt and len to fill in missing
 	#l=length column
@@ -1202,7 +1202,7 @@ fillin <- function(l,d) {
 }	
 }
 
-#@
+
 fillin.mult <- function(data) {
 	data.return <- data
 	data.return[,c(7:ncol(data.return))] <- NA
@@ -1212,7 +1212,7 @@ fillin.mult <- function(data) {
 	return(data.return)
 }
 
-#@
+
 weighting.number.per.flen.per.tow <- function(data) {
 	data1 <- split(data,data$SETNO)
 	for(i in 1:length(data1)) {
@@ -1222,7 +1222,7 @@ weighting.number.per.flen.per.tow <- function(data) {
 	return(data1)
 	}
 
-#@
+
 list.names.to.columns <- function(data) {
 	for(i in 1:length(data)) {
 			if( !is.null(data[[i]])) {
@@ -1236,7 +1236,7 @@ list.names.to.columns <- function(data) {
 			return(data)
 		}
 
-#@
+
 nlsBoot1 <- function (nls, data1,niter = 999,Qlow1, Qhigh1) 
 {
   if (!inherits(nls, "nls")) 
@@ -1269,7 +1269,7 @@ nlsBoot1 <- function (nls, data1,niter = 999,Qlow1, Qhigh1)
   return(listboot)
 }
 
-#@
+
 jack.kn <- function(data) {
 	n <- nrows(data)
 	dd <- list()
@@ -1280,7 +1280,7 @@ jack.kn <- function(data) {
 	}
 
 
-#@	
+	
 na.zero <- function(x){
  for(i in 1:length(x[1,])){
   if(length(which(is.na(x[,i])))>0){
@@ -1289,7 +1289,7 @@ na.zero <- function(x){
   return(x)
  } 
  
- #@
+ 
 cor.prob <- function(X, dfr = nrow(X) - 2) {
 				 R <- cor(X)
 				 above <- row(R) < col(R)
@@ -1298,7 +1298,7 @@ cor.prob <- function(X, dfr = nrow(X) - 2) {
 				 R[above] <- 1 - pf(Fstat, 1, dfr)
 				 R
 			}
-	#@		
+			
 capwords <- function(s, strict = FALSE) {
 			  cap <- function(s) paste(toupper(substring(s,1,1)),
          {s <- substring(s,2); if(strict) tolower(s) else s},
@@ -1306,7 +1306,7 @@ capwords <- function(s, strict = FALSE) {
 				  sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))
 					
 				}
-#@
+
 weighting.by.biom <- function (z) {
 	#for combining lengths in stratified diet estimates weighted means and variances
 	x <- c('YEAR','STRAT','FLEN', "BIOM.mean" ,"CLEN.mean", "BIOM.var", "CLEN.var")
@@ -1324,7 +1324,7 @@ weighting.by.biom <- function (z) {
 	 return(b)
 }
 
-#@
+
 weighting.by.biom.within.strat <- function (z) {
 		#for combining lengths in stratified diet estimates weighted means and variances
 	x <- c('YEAR','STRAT','FLEN', "BIOM.mean" ,"CLEN.mean", "BIOM.var", "CLEN.var",'RFLEN')
@@ -1342,7 +1342,7 @@ weighting.by.biom.within.strat <- function (z) {
 	 return(b)
 }
 
-#@
+
 combining.strata <- function(x) {
 	A <- c('YEAR', 'STRAT','BIOM.mean',  'CLEN.mean',   'BIOM.var',   'CLEN.var', 'strat.areas')
 	b <- x[,!colnames(x) %in% A]
@@ -1355,7 +1355,7 @@ combining.strata <- function(x) {
 	return(B)
 }
 
-#@
+
 combining.strata.rflen <- function(x) {
 	A <- c('YEAR','RFLEN', 'STRAT','BIOM.mean',  'CLEN.mean',   'BIOM.var',   'CLEN.var', 'strat.areas')
 	b <- x[,!colnames(x) %in% A]
@@ -1369,7 +1369,7 @@ combining.strata.rflen <- function(x) {
 }
 
 	
-#@	
+	
 diet.barplot <- function(data,number=10,spps=unique(diet.data1$COMMON),error=T,prey.group='FAM',by.lengths=F) {
 	if(nrow(data)>1) {
 	 if(prey.group=='FAM') {
@@ -1401,7 +1401,7 @@ diet.barplot <- function(data,number=10,spps=unique(diet.data1$COMMON),error=T,p
 	}
 	}	
 
-#@
+
 diet.barplot.3 <- function(data,number=10,spps=unique(diet.data1$COMMON),prey.group='FAM') {
 	lens <- unique(data$FLEN)
 	if(nrow(data)>1) {

@@ -1,4 +1,5 @@
-#@
+#' @export
+
 within.strat <- function(data1) {
 	#within strata means and variances using clen data within length groups
 	#dats are the means

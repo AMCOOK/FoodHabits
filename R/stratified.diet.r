@@ -1,4 +1,5 @@
-#@
+#' @export
+
 stratified.diet <- function (diet.data=diet.data$raw.diet,survey.data=diet.data$gs.survey.data,strata.data=diet.data$strata.data,prey.grouping=pp,
 							remove.singletons,by.lengths=F,cut.p=T,lengths,a.b=diet.data$a.b,fillin.missing.lengths=F) {
 		diet.data$YEAR <- as.numeric(substr(diet.data$MISSION,4,7))

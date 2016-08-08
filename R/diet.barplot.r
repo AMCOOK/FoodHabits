@@ -1,4 +1,5 @@
-#@	
+#' @export
+	
 diet.barplot <- function(data,number=10,spps=unique(diet.data1$COMMON),error=T,prey.group='FAM',by.lengths=F) {
 	if(nrow(data)>1) {
 	 if(prey.group=='FAM') {

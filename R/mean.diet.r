@@ -1,4 +1,5 @@
-#@
+#' @export
+
 mean.diet <- function(diet.data,prey.grouping='FAM',remove.singletons=1,remove.influentials=1,percent.diff=50,by.lengths=F) {
 		#mean diet no stratification and no length corrections
 	diet.data$YEAR <- as.numeric(substr(diet.data$MISSION,4,7))

@@ -8,6 +8,7 @@
 #' @param plots This will produce your plots of regression and bounding polygon
 #' @param diet.analysis Uses the info from your diet analysis script to fill in some of the data
 #' @examples diet.analysis()
+#' @export
 
 a.b <- function(specs,year=ddd,area,season,stat.num=5,plots=T,diet.analysis=F) {
 			if(diet.analysis) {specs <- strsplit(specs,"-")[[1]][1]}

@@ -1,4 +1,5 @@
-#@
+#' @export
+
 combining.strata <- function(x) {
 	A <- c('YEAR', 'STRAT','BIOM.mean',  'CLEN.mean',   'BIOM.var',   'CLEN.var', 'strat.areas')
 	b <- x[,!colnames(x) %in% A]

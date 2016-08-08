@@ -1,4 +1,5 @@
-#@
+#' @export
+
 data.species <- function(dat=ds, strat.nafo=areas,seas=season,yrs=year,reg=regions) {
 	yrs1 <- paste(yrs,collapse="','")
 	reg1 <- paste(reg,collapse="','")

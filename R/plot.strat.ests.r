@@ -1,4 +1,5 @@
-#@
+#' @export
+
 plot.strat.ests <- function(a=strat.ests) {
 	plot(a$Year,a$Mean,type='n',xlab='Year',ylab=expression(Number%.%tow^-1),ylim=c(min(a$Mean-a$SD),max(a$Mean+a$SD)))
 	if(ncol(a)>=7) {

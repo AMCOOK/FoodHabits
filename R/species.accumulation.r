@@ -1,4 +1,5 @@
-#@
+#' @export
+
 species.accumulation <- function(data,cut.p=F) {
 	
 	

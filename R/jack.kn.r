@@ -1,4 +1,5 @@
-#@
+#' @export
+
 jack.kn <- function(data) {
 	n <- nrows(data)
 	dd <- list()

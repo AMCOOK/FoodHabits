@@ -1,4 +1,5 @@
-#@
+#' @export
+
 influential.obs <- function(x,infl=50){
 	##identify influential observation based on their percent difference in mean from the overall
 	#only if there are greater than 2 times this prey is observed as less than that it becomes a problem

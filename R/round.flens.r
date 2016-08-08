@@ -1,4 +1,5 @@
-#@
+#' @export
+
 round.flens <- function(x,grp) {
 		if(grp==3) a <- floor(x/3)*3+1    #3cm
 		if(grp==5) a <- floor(x/5)*5+2    #5cm

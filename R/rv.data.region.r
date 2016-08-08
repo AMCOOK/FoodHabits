@@ -1,4 +1,5 @@
-#@
+#' @export
+
 rv.data.region <- function(strat.nafo=areas,seas=season,yrs=year) {
 	yrs1 <- paste(yrs,collapse="','")
 	mns <- ifelse(seas=='Winter',paste('12','01','02','03',sep="','"),ifelse(seas=='Spring',paste('04','05',sep="','"),ifelse(seas=='Summer',paste('06','07','08',sep="','"),

@@ -1,4 +1,5 @@
-#@
+#' @export
+
 rv.species <- function(year, season,area)
 	{
 	mns <- ifelse(season=='Winter',paste('12','01','02','03',sep="','"),ifelse(season=='Spring',paste('04','05',sep="','"),ifelse(season=='Summer',paste('06','07','08',sep="','"),

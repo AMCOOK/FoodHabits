@@ -1,4 +1,5 @@
-#@
+#' @export
+
 species.accumulation.by.length <- function(data,lengths, cut.p=T) {
 	if(cut.p) {
 		data$RFLEN <- ifelse(data$FLEN<=lengths,paste("<=",lengths,sep=""),paste(">",lengths,sep=""))

@@ -1,4 +1,5 @@
-#@
+#' @export
+
 mean.diet.by.length <- function(data,lengths, cut.p=T, prey.grouping,remove.singletons,remove.influentials,percent.diff) {
 	mult.windows()
 	if(cut.p) {

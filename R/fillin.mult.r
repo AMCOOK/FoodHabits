@@ -1,4 +1,5 @@
-#@
+#' @export
+
 fillin.mult <- function(data) {
 	data.return <- data
 	data.return[,c(7:ncol(data.return))] <- NA

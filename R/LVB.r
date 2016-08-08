@@ -1,4 +1,5 @@
-#@
+#' @export
+
 LVB <- function(species,area,syear,eyear,season, plot=T,add.plot=F,line.col='blue',init.pars=list(hinf=0, K=0, t0=0), NLS=T,MLE=F, method=c('BFGS','CG','SANN'),cohort=F,
 	compare=F,species2,area2,syear2,eyear2,season2, init.pars2=list(hinf=0, K=0, t0=0),cohort2,control = list(maxiter = 10000, minFactor = 1/2024, tol = 1e-05),means=F,error.kimura.c,
 	means2=F,error.kimura.c2)

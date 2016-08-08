@@ -1,4 +1,5 @@
-#@
+#' @export
+
 sort.list.amc <- function(list1,r,inc=T) { #sorts all elements in a list based on the column r
 	#r=column number for sort
 	a <- length(list1)

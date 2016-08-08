@@ -1,4 +1,5 @@
-#@
+#' @export
+
 stratified.estimates <- function(survey.dat=diet.data$rv.data.by.length$survey.data,strata.dat=diet.data$rv.data.by.length$strata.weights,by.lengths=F,cut.p=F,lengths) {
 	survey.dat <- merge(survey.dat,strata.dat,by='STRAT')
 	ss <- to.nums(as.data.frame(do.call('rbind',(strsplit(unique(paste(survey.dat$YEAR,survey.dat$STRAT,survey.dat$TAREA,sep="-")),"-")))),c(1,2,3))

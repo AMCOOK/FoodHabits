@@ -1,3 +1,4 @@
+#' @export
 #diet script and function 
 
 diet.analysis<-function(path=getwd()) {

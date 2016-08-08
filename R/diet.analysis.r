@@ -22,7 +22,7 @@ diet.analysis<-function(path=getwd()) {
 	options(stringsAsFactors=F)
 	options(warn=-1)
 
-	source(file.path(path,"diet.functions.R")) 
+	#source(file.path(path,"diet.functions.R")) 
 	    diet.version <- "0.1"
     cat("---------------------------------------------------------- \n")
     cat(paste("Welcome to Diet Analysis in R; version", 

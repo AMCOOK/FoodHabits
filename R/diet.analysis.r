@@ -1,7 +1,7 @@
 #' @export
 #diet script and function 
 
-diet.analysis<-function(path=getwd(),uid = oracle.stomach.user,pwd = oracle.stomach.password) {
+diet.analysis<-function(path=getwd(),dsn = 'ptran', uid = oracle.stomach.user,pwd = oracle.stomach.password) {
 		if(!require(RODBC)) { install.packages('RODBC',repos="http://cran.r-project.org")}
 		if(!require(vegan)) { install.packages('vegan',repos="http://cran.r-project.org")}
 		if(!require(reshape)) { install.packages('reshape',repos="http://cran.r-project.org")}
@@ -18,7 +18,7 @@ diet.analysis<-function(path=getwd(),uid = oracle.stomach.user,pwd = oracle.stom
 	require(nlstools)
 	require(doBy)
 	
-	channel<<-odbcConnect("ptran",uid, pwd) #called globally
+	channel<<-odbcConnect(dsn,uid, pwd) #called globally
 	options(stringsAsFactors=F)
 	options(warn=-1)
 
